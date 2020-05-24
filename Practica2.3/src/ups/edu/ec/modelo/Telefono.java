@@ -23,7 +23,7 @@ public class Telefono implements Serializable {
 	private String tipo;
 	private String operadora;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne()
 	private Persona persona;
 	
 	
@@ -33,11 +33,12 @@ public class Telefono implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Telefono(String numero, String tipo, String operadora) {
+	public Telefono(String numero, String tipo, String operadora,Persona persona) {
 
 		this.numero = numero;
 		this.tipo = tipo;
 		this.operadora = operadora;
+		this.persona=persona;
 	}
 
 	public int getCodigo() {
@@ -81,9 +82,53 @@ public class Telefono implements Serializable {
 	}
 
 	@Override
-	public String toString() {
-		return "Telefono [codigo=" + codigo + ", numero=" + numero + ", tipo=" + tipo + ", operadora=" + operadora
-				+ ", persona=" + persona + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigo;
+		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((operadora == null) ? 0 : operadora.hashCode());
+		//result = prime * result + ((persona == null) ? 0 : persona.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Telefono other = (Telefono) obj;
+		if (codigo != other.codigo)
+			return false;
+		if (numero == null) {
+			if (other.numero != null)
+				return false;
+		} else if (!numero.equals(other.numero))
+			return false;
+		if (operadora == null) {
+			if (other.operadora != null)
+				return false;
+		} else if (!operadora.equals(other.operadora))
+			return false;
+		//if (persona == null) {
+			//if (other.persona != null)
+				//return false;
+		//} else if (!persona.equals(other.persona))
+			//return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		return true;
+	}
+
+
+
+	
 
 }

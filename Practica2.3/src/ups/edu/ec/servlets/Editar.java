@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ups.edu.ec.dao.DAOFactory;
+import ups.edu.ec.dao.PersonaDAO;
 import ups.edu.ec.dao.TelefonoDAO;
 import ups.edu.ec.modelo.Persona;
 import ups.edu.ec.modelo.Telefono;
@@ -40,15 +41,34 @@ public class Editar extends HttpServlet {
 		if (sesion != null && id != null) {
 			if (sesion.equals("true")) {
 
-				TelefonoDAO phoneDao = DAOFactory.getDAOFactory().getTelefonoDAO();
-				Telefono phone = phoneDao.findById(Integer.parseInt(id));
+				
+				PersonaDAO userDAO=DAOFactory.getDAOFactory().getPersonaDAO();
+				Persona user=userDAO.findById(String.valueOf(request.getSession().getAttribute("userID")));
+				
+				TelefonoDAO phoneDAO=DAOFactory.getDAOFactory().getTelefonoDAO();
+				
+				Telefono phone= phoneDAO.findById(Integer.parseInt(id));
+				
+			    user.getLista().size();
+				
+			
+				
+				user.eliminarTelefono(phone);
+				userDAO.update(user);
+				
+				
+				
+				
+				
+				
+				//TelefonoDAO phoneDao = DAOFactory.getDAOFactory().getTelefonoDAO();
+				//Telefono phone = phoneDao.findById(Integer.parseInt(id));
 
 				System.out.println("telefono a eliminar.. " + id);
 
-				Persona user = DAOFactory.getDAOFactory().getPersonaDAO()
-						.findById(String.valueOf(request.getSession().getAttribute("userID")));
-				phone.setPersona(user);
-				phoneDao.delete(phone);
+				//Persona user = DAOFactory.getDAOFactory().getPersonaDAO().findById(String.valueOf(request.getSession().getAttribute("userID")));
+				//phone.setPersona(user);
+				//phoneDao.delete(phone);
 
 				response.sendRedirect("Agenda");
 			}

@@ -29,8 +29,10 @@ public class Persona implements Serializable {
 	//private int activo;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy = "persona")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy = "persona",orphanRemoval = true)
 	private List<Telefono> lista;
+	
+	
 
 	public Persona() {
 	}
@@ -99,7 +101,24 @@ public class Persona implements Serializable {
 	public void setLista(List<Telefono> lista) {
 		this.lista = lista;
 	}
+	
+	///
+	public void eliminarTelefono(Telefono telefono) {
+		
+		if(lista.contains(telefono)) {
+			System.out.println("Se elimino");
+			this.lista.remove(telefono);
+			telefono.setPersona(null);
+		}
+	}
 
+	///
+	public void agregarTelefono(Telefono telefono) {
+		if(!lista.contains(telefono)) {
+			this.lista.add(telefono);
+			telefono.setPersona(this);
+		}
+	}
 	
 	
 	
@@ -112,7 +131,7 @@ public class Persona implements Serializable {
 		result = prime * result + ((cedula == null) ? 0 : cedula.hashCode());
 		result = prime * result + ((contrasena == null) ? 0 : contrasena.hashCode());
 		result = prime * result + ((correo == null) ? 0 : correo.hashCode());
-		result = prime * result + ((lista == null) ? 0 : lista.hashCode());
+		//result = prime * result + ((lista == null) ? 0 : lista.hashCode());
 		result = prime * result + ((nombres == null) ? 0 : nombres.hashCode());
 		return result;
 	}
@@ -148,11 +167,11 @@ public class Persona implements Serializable {
 				return false;
 		} else if (!correo.equals(other.correo))
 			return false;
-		if (lista == null) {
-			if (other.lista != null)
-				return false;
-		} else if (!lista.equals(other.lista))
-			return false;
+		//if (lista == null) {
+			//if (other.lista != null)
+				//return false;
+		//} else if (!lista.equals(other.lista))
+		//	return false;
 		if (nombres == null) {
 			if (other.nombres != null)
 				return false;
@@ -161,10 +180,7 @@ public class Persona implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Persona [nombres=" + nombres + ", apellidos=" + apellidos + ", cedula=" + cedula + ", correo=" + correo
-				+ ", contrasena=" + contrasena + ", lista=" + lista + "]";
-	}
+	
 
+	
 }
