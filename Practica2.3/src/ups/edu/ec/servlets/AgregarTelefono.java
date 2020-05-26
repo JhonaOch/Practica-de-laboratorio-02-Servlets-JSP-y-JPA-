@@ -49,9 +49,7 @@ public class AgregarTelefono extends HttpServlet {
 		String numero = request.getParameter("numero");
 		String tipo = request.getParameter("tipo");
 		String operadora = request.getParameter("operadora");
-		//String persona=request.getParameter("persona");
-
-		//TelefonoDAO telefonoDao = DAOFactory.getDAOFactory().getTelefonoDAO();
+	
 		PersonaDAO userDAO=DAOFactory.getDAOFactory().getPersonaDAO();
 		Persona user = userDAO.findById(String.valueOf(request.getSession().getAttribute("userID")));
 				
@@ -59,16 +57,7 @@ public class AgregarTelefono extends HttpServlet {
 		
 		user.agregarTelefono(telefono);
 		userDAO.update(user);//
-		//PersonaDAO userDAO=DAOFactory.getDAOFactory().getPersonaDAO();
-
 		
-		//telefono.setPersona(persona);
-		
-		///persona.agregarTelefono(telefono);
-		// userDAO.update(persona);
-		  //telefono.setPersona(persona);
-		//telefonoDao.create(telefono);
-
 		response.sendRedirect("Agenda");
 
 	}
