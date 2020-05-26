@@ -47,7 +47,7 @@ public class LoginValidar implements Filter {
 			chain.doFilter(request, response);
 		} else {
 			// System.out.println("redirect login .....");
-			res.sendRedirect("/Practica2.2/web/public/Login.html");
+			res.sendRedirect("/Practica2.3/web/public/Login.html");
 		}
 	}
 
