@@ -51,25 +51,11 @@ public class Editar extends HttpServlet {
 				
 			    user.getLista().size();
 				
-			
-				
 				user.eliminarTelefono(phone);
 				userDAO.update(user);
-				
-				
-				
-				
-				
-				
-				//TelefonoDAO phoneDao = DAOFactory.getDAOFactory().getTelefonoDAO();
-				//Telefono phone = phoneDao.findById(Integer.parseInt(id));
-
 				System.out.println("telefono a eliminar.. " + id);
 
-				//Persona user = DAOFactory.getDAOFactory().getPersonaDAO().findById(String.valueOf(request.getSession().getAttribute("userID")));
-				//phone.setPersona(user);
-				//phoneDao.delete(phone);
-
+			
 				response.sendRedirect("Agenda");
 			}
 		} else {
